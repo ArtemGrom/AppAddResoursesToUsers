@@ -1,0 +1,10 @@
+{% extends "add_host/base.html" %}
+{% block title %}My Host{% endblock %}
+{% block content %}
+
+<h1>Hosts</h1>
+{% for host in hosts %}
+  <p class="date">Updated {{ host.updated }} by {{ host.owner }}</p>
+  <p> IP address {{ host.ip_address }} {{ host.resources_list }}</p>
+{% endfor %}
+{% endblock %}

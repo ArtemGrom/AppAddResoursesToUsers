@@ -4,6 +4,13 @@ from django.contrib.auth import login
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from add_host.models import Host
+
+
+def host_list(request):
+    hosts = Host.objects.all()
+    return render(request, 'add_host/host/list_host.html', {'hosts': hosts})
+
 
 def index(request):
     return render(request, 'add_host/index.html')
@@ -23,7 +30,7 @@ class RegisterFormView(FormView):
 class LoginFormView(FormView):
     form_class = AuthenticationForm
 
-    success_url = "/"
+    success_url = "/add_host/"
     template_name = "registration/login.html"
 
     def form_valid(self, form):
