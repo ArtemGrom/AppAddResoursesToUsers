@@ -5,6 +5,6 @@
 <h1>Hosts</h1>
 {% for host in hosts %}
   <p class="date">Updated {{ host.updated }} by {{ host.owner }}</p>
-  <p> IP address {{ host.ip_address }} {{ host.resources_list }}</p>
+  <p> IP address: {{ host.ip_address }} Resources:{{ host.resources_list }}</p>
 {% endfor %}
 {% endblock %}

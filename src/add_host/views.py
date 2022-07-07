@@ -1,15 +1,22 @@
 from django.shortcuts import render
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 from django.views.generic.edit import FormView
+from django.views.generic import ListView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 
 from add_host.models import Host
 
 
-def host_list(request):
-    hosts = Host.objects.all()
-    return render(request, 'add_host/host/list_host.html', {'hosts': hosts})
+class HostListView(LoginRequiredMixin, ListView):
+    queryset = Host.objects.all()
+    context_object_name = 'hosts'
+    template_name = 'add_host/host/list_host.html'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
 
 
 def index(request):
