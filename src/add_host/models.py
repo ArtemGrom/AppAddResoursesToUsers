@@ -16,3 +16,6 @@ class Host(models.Model):
 
     def __str__(self):
         return f'Resources: {self.resources_list}'
+
+    def get_absolute_url(self):
+        return '/add_host/list_host/'

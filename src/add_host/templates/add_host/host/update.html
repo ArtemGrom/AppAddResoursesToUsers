@@ -1,0 +1,12 @@
+{% extends "add_host/base.html" %}
+{% block title %}Create Host{% endblock %}
+{% block content %}
+  <div class="feature">
+    <h1>Update hosts</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Update</button>
+    </form>
+  </div>
+{% endblock %}

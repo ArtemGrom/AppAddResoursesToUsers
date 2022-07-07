@@ -26,7 +26,8 @@ def create(request):
 
 class HostUpdateView(UpdateView):
     model = Host
-    template_name = 'add_host/host/update_host.html'
+    template_name = 'add_host/host/update.html'
+    fields = "__all__"
 
 
 class HostListView(LoginRequiredMixin, ListView):
