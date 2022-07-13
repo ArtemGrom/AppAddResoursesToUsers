@@ -4,12 +4,12 @@
 
 <h1>Hosts</h1>
 {% for host in hosts %}
-  <h2>Number {{ host.id }}</h2>
-  <p class="date">Updated {{ host.updated }} by {{ host.owner }}</p>
+  <h2>Номер записи хоста {{ host.id }}</h2>
+  <p class="date">Обновлено: {{ host.updated }} by {{ host.owner }}</p>
   <p>
-    IP address: {{ host.ip_address }}<br>
-    PORT: {{ host.port }}<br>
-    Resources:{{ host.resources_list }}<br>
+    IP-адрес: {{ host.ip_address }}<br>
+    Порт: {{ host.port }}<br>
+    Ресурс-хост:{{ host.resources_list }}<br>
   </p>
 {% endfor %}
 {% endblock %}

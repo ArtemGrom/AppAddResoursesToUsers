@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.views.generic import ListView, UpdateView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
@@ -10,24 +10,22 @@ from add_host.forms import HostForm
 from add_host.models import Host
 
 
-def create(request):
-    if request.method == 'POST':
-        form = HostForm(request.POST)
-        if form.is_valid():
-            host = form.save(commit=False)
-            host.user = request.user
-            host.save()
-            return redirect('list_host')
+class CreateHostView(LoginRequiredMixin, CreateView):
+    model = Host
+    template_name = 'add_host/host/create.html'
+    form_class = HostForm
 
-    else:
-        form = HostForm()
-    return render(request, 'add_host/host/create.html', {'form': form})
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.owner = self.request.user
+        obj.save()
+        return super(CreateHostView, self).form_valid(form)
 
 
-class HostUpdateView(UpdateView):
+class HostUpdateView(LoginRequiredMixin, UpdateView):
     model = Host
     template_name = 'add_host/host/update.html'
-    fields = "__all__"
+    form_class = HostForm
 
 
 class HostListView(LoginRequiredMixin, ListView):

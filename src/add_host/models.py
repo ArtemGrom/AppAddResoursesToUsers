@@ -8,9 +8,13 @@ class Host(models.Model):
         ('unix', 'Unix'),
         ('sql', 'SQL'),
     ]
-    ip_address = models.GenericIPAddressField()
-    port = models.CharField(max_length=10)
-    resources_list = models.CharField(max_length=10, choices=RESOURCES_CHOISES, default='unix')
+    ip_address = models.GenericIPAddressField(verbose_name='IP-адрес')
+    port = models.IntegerField(verbose_name='Порт', default=80)
+    resources_list = models.CharField(
+        verbose_name='Список ресурсов-хостов',
+        max_length=10,
+        choices=RESOURCES_CHOISES,
+        default='unix')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, default=User)
     updated = models.DateTimeField(auto_now=True)
 
@@ -19,3 +23,7 @@ class Host(models.Model):
 
     def get_absolute_url(self):
         return '/add_host/list_host/'
+
+    class Meta:
+        verbose_name = 'Хост'
+        verbose_name_plural = 'Хосты'
